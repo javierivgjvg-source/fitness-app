@@ -222,6 +222,38 @@ body.dark .water-progress{background:#334155}
 .motivation-msg{text-align:center;padding:12px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:10px;font-size:.88em;font-weight:600;color:#166534;margin-top:12px;animation:fadeInMsg .5s ease}
 body.dark .motivation-msg{background:linear-gradient(135deg,#064e3b,#065f46);color:#6ee7b7}
 @keyframes fadeInMsg{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* Notifications / Reminders */
+.reminders-page{padding:8px 0}
+.reminders-header{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:14px;padding:20px;margin-bottom:16px;text-align:center}
+.reminders-header h3{font-size:1.1em;margin-bottom:4px}
+.reminders-header p{font-size:.82em;opacity:.9}
+.reminder-permission{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;text-align:center}
+body.dark .reminder-permission{background:#16213e}
+.reminder-permission .perm-status{font-size:.85em;color:#6b7280;margin-bottom:12px}
+.reminder-permission .perm-btn{padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-weight:700;font-size:.9em;cursor:pointer}
+.reminder-permission .perm-btn:active{transform:scale(.95)}
+.reminder-permission .perm-btn.granted{background:#16a34a}
+.reminder-permission .perm-btn.denied{background:#dc2626}
+.reminder-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid #f59e0b}
+body.dark .reminder-card{background:#16213e}
+.reminder-card.colacion{border-left-color:#7c3aed}
+.reminder-card h4{font-size:.9em;color:#1f2937;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+body.dark .reminder-card h4{color:#e2e8f0}
+.reminder-card .reminder-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.reminder-card .reminder-row label{font-size:.8em;color:#6b7280;min-width:50px}
+.reminder-card .reminder-row input[type=time]{padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb;font-size:.9em;background:#f9fafb}
+body.dark .reminder-card .reminder-row input[type=time]{background:#0f172a;border-color:#334155;color:#e2e8f0}
+.reminder-card .toggle-switch{position:relative;width:44px;height:24px;flex-shrink:0}
+.reminder-card .toggle-switch input{opacity:0;width:0;height:0}
+.reminder-card .toggle-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#e5e7eb;border-radius:12px;transition:.3s}
+body.dark .reminder-card .toggle-slider{background:#334155}
+.reminder-card .toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.reminder-card .toggle-switch input:checked+.toggle-slider{background:#4f46e5}
+.reminder-card .toggle-switch input:checked+.toggle-slider::before{transform:translateX(20px)}
+.reminder-test-btn{display:block;width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-weight:700;font-size:.9em;cursor:pointer;margin-top:16px}
+.reminder-test-btn:active{transform:scale(.97)}
+.reminder-info{background:#fffbeb;border-radius:12px;padding:14px;margin-top:16px;font-size:.8em;color:#92400e;line-height:1.5}
+body.dark .reminder-info{background:#451a03;color:#fbbf24}
 </style>
 </head>
 <body>
@@ -243,12 +275,14 @@ body.dark .motivation-msg{background:linear-gradient(135deg,#064e3b,#065f46);col
 <div class="tab" data-page="ejercicio"><span class="tab-icon">🏋️</span>Ejercicio</div>
 <div class="tab" data-page="peso"><span class="tab-icon">⚖️</span>Peso</div>
 <div class="tab" data-page="compras"><span class="tab-icon">🛒</span>Compras</div>
+<div class="tab" data-page="recordatorios"><span class="tab-icon">🔔</span>Alertas</div>
 </nav>
 <main class="content">
 <div id="comidas" class="page active"></div>
 <div id="ejercicio" class="page"></div>
 <div id="peso" class="page"></div>
 <div id="compras" class="page"></div>
+<div id="recordatorios" class="page"></div>
 </main>
 <div class="day-total-bar" id="totalBar" style="display:none">
 <span class="total" id="totalCal">0 kcal</span>
@@ -1182,6 +1216,7 @@ document.querySelectorAll('.tab').forEach(function(tab){
     document.getElementById('totalBar').style.display=page==='comidas'?'flex':'none';
     if(page==='peso')renderPeso();
     if(page==='compras')renderCompras(PLAN[DAYS[currentDay]]);
+    if(page==='recordatorios')renderRecordatorios();
   });
 });
 
@@ -1294,9 +1329,206 @@ function saveCustomMeal(){
   closeFoodBuilder();
   renderComidas(PLAN[DAYS[currentDay]]);
 }
+
+// === MEAL REMINDER NOTIFICATIONS ===
+var DEFAULT_REMINDERS={
+  desayuno:{enabled:true,time:'08:00',label:'Desayuno'},
+  colacion1:{enabled:true,time:'10:30',label:'Colacion Matutina'},
+  almuerzo:{enabled:true,time:'13:00',label:'Almuerzo'},
+  colacion2:{enabled:true,time:'16:30',label:'Colacion Tarde'},
+  cena:{enabled:true,time:'20:30',label:'Cena'}
+};
+
+var REMINDER_EMOJIS={desayuno:'🌅',colacion1:'🍎',almuerzo:'🍲',colacion2:'🥤',cena:'🌙'};
+var REMINDER_MESSAGES={
+  desayuno:['¡Hora del desayuno! Empieza el dia con energia','¡A desayunar! Tu cuerpo necesita combustible'],
+  colacion1:['¡Colacion matutina! No te la saltes','¡Hora del snack! Mantén tu metabolismo activo','¡Recuerda tu colacion! Un boost de energia a media mañana'],
+  almuerzo:['¡Hora de almorzar! Recarga energias','¡A comer! Tu cuerpo lo necesita'],
+  colacion2:['¡Colacion de la tarde! No la olvides','¡Snack time! Evita llegar con hambre a la cena','¡Hora de tu colacion! Mantén el ritmo'],
+  cena:['¡Hora de cenar! Cierra bien el dia','¡A cenar! Una comida liviana para descansar mejor']
+};
+
+function getReminders(){
+  var stored=localStorage.getItem('mealReminders');
+  if(stored)return JSON.parse(stored);
+  return JSON.parse(JSON.stringify(DEFAULT_REMINDERS));
+}
+
+function saveReminders(reminders){localStorage.setItem('mealReminders',JSON.stringify(reminders))}
+
+function getLastNotified(){
+  var stored=localStorage.getItem('lastNotified');
+  return stored?JSON.parse(stored):{};
+}
+
+function setLastNotified(mealKey){
+  var data=getLastNotified();
+  data[mealKey]=new Date().toISOString().slice(0,16);
+  localStorage.setItem('lastNotified',JSON.stringify(data));
+}
+
+function getRandomMessage(mealKey){
+  var msgs=REMINDER_MESSAGES[mealKey]||['¡Hora de comer!'];
+  return msgs[Math.floor(Math.random()*msgs.length)];
+}
+
+function sendMealNotification(mealKey,label){
+  if(!('serviceWorker' in navigator)||!navigator.serviceWorker.controller)return;
+  var emoji=REMINDER_EMOJIS[mealKey]||'🍽️';
+  var msg=getRandomMessage(mealKey);
+  navigator.serviceWorker.controller.postMessage({
+    type:'SHOW_NOTIFICATION',
+    title:emoji+' '+label,
+    body:msg,
+    tag:'meal-'+mealKey
+  });
+  setLastNotified(mealKey);
+}
+
+function checkMealReminders(){
+  if(Notification.permission!=='granted')return;
+  var reminders=getReminders();
+  var now=new Date();
+  var currentTime=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  var today=now.toISOString().slice(0,10);
+  var lastNotified=getLastNotified();
+
+  Object.keys(reminders).forEach(function(key){
+    var reminder=reminders[key];
+    if(!reminder.enabled)return;
+    if(reminder.time!==currentTime)return;
+    var lastKey=lastNotified[key];
+    if(lastKey&&lastKey.startsWith(today)&&lastKey.endsWith(reminder.time))return;
+    sendMealNotification(key,reminder.label);
+  });
+}
+
+// Check every 30 seconds for meal times
+var reminderCheckInterval=setInterval(checkMealReminders,30000);
+// Also check immediately on load
+setTimeout(checkMealReminders,2000);
+
+function requestNotificationPermission(){
+  if(!('Notification' in window)){
+    alert('Tu navegador no soporta notificaciones');
+    return;
+  }
+  Notification.requestPermission().then(function(permission){
+    renderRecordatorios();
+    if(permission==='granted'){
+      // Send a test notification to confirm it works
+      if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+        navigator.serviceWorker.controller.postMessage({
+          type:'SHOW_NOTIFICATION',
+          title:'✅ Notificaciones activadas',
+          body:'Recibirás recordatorios de tus comidas. ¡No más colaciones olvidadas!',
+          tag:'test-notification'
+        });
+      }
+    }
+  });
+}
+
+function sendTestNotification(){
+  if(Notification.permission!=='granted'){
+    requestNotificationPermission();
+    return;
+  }
+  if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage({
+      type:'SHOW_NOTIFICATION',
+      title:'🔔 Recordatorio de prueba',
+      body:'¡Asi se verán tus recordatorios de comidas!',
+      tag:'test-meal'
+    });
+  }
+}
+
+function updateReminderTime(mealKey,time){
+  var reminders=getReminders();
+  reminders[mealKey].time=time;
+  saveReminders(reminders);
+}
+
+function toggleReminder(mealKey,enabled){
+  var reminders=getReminders();
+  reminders[mealKey].enabled=enabled;
+  saveReminders(reminders);
+}
+
+function renderRecordatorios(){
+  var el=document.getElementById('recordatorios');
+  var reminders=getReminders();
+  var permStatus=('Notification' in window)?Notification.permission:'unsupported';
+
+  var html='<div class="reminders-page">';
+
+  // Header
+  html+='<div class="reminders-header"><h3>🔔 Recordatorios de Comidas</h3><p>No te olvides de tus colaciones</p></div>';
+
+  // Permission status
+  html+='<div class="reminder-permission">';
+  if(permStatus==='granted'){
+    html+='<div class="perm-status">✅ Notificaciones activadas</div>';
+    html+='<button class="perm-btn granted" onclick="sendTestNotification()">Enviar prueba</button>';
+  } else if(permStatus==='denied'){
+    html+='<div class="perm-status">❌ Notificaciones bloqueadas</div>';
+    html+='<button class="perm-btn denied" disabled>Bloqueado por el navegador</button>';
+    html+='<div style="font-size:.75em;color:#dc2626;margin-top:8px">Ve a la configuracion de tu navegador para permitir notificaciones</div>';
+  } else if(permStatus==='unsupported'){
+    html+='<div class="perm-status">⚠️ Tu navegador no soporta notificaciones</div>';
+  } else {
+    html+='<div class="perm-status">Las notificaciones estan desactivadas</div>';
+    html+='<button class="perm-btn" onclick="requestNotificationPermission()">🔔 Activar Notificaciones</button>';
+  }
+  html+='</div>';
+
+  // Reminder cards for each meal
+  Object.keys(DEFAULT_REMINDERS).forEach(function(key){
+    var reminder=reminders[key];
+    var emoji=REMINDER_EMOJIS[key];
+    var isColacion=(key==='colacion1'||key==='colacion2');
+    html+='<div class="reminder-card'+(isColacion?' colacion':'')+'">';
+    html+='<h4>'+emoji+' '+reminder.label+(isColacion?' ⭐':'')+'</h4>';
+    html+='<div class="reminder-row">';
+    html+='<label>Hora:</label>';
+    html+='<input type="time" value="'+reminder.time+'" onchange="updateReminderTime(\''+key+'\',this.value)">';
+    html+='<label class="toggle-switch"><input type="checkbox" '+(reminder.enabled?'checked':'')+' onchange="toggleReminder(\''+key+'\',this.checked)"><span class="toggle-slider"></span></label>';
+    html+='</div>';
+    html+='</div>';
+  });
+
+  // Test button
+  if(permStatus==='granted'){
+    html+='<button class="reminder-test-btn" onclick="sendTestNotification()">🔔 Enviar notificacion de prueba</button>';
+  }
+
+  // Info box
+  html+='<div class="reminder-info">';
+  html+='<strong>💡 Tips:</strong><br>';
+  html+='• Las colaciones estan marcadas con ⭐ para que no las olvides<br>';
+  html+='• La app debe estar abierta (puede estar en segundo plano) para recibir notificaciones<br>';
+  html+='• Configura los horarios segun tu rutina diaria<br>';
+  html+='• Si no recibes notificaciones, verifica los permisos del navegador';
+  html+='</div>';
+
+  html+='</div>';
+  el.innerHTML=html;
+}
+
 updateDayDisplay();
 renderPeso();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    // Ensure SW is ready before checking reminders
+    if(navigator.serviceWorker.controller){
+      setTimeout(checkMealReminders,3000);
+    }
+    navigator.serviceWorker.addEventListener('controllerchange',function(){
+      setTimeout(checkMealReminders,1000);
+    });
+  });
+}
 </script>
 <div class="food-modal" id="foodModal">
 <div class="food-modal-header"><h3 id="foodModalTitle">Personalizar Comida</h3><button class="food-modal-close" onclick="closeFoodBuilder()">&#10005;</button></div>
