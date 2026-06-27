@@ -13,6 +13,12 @@
 html,body{height:100%;overflow:hidden}
 body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:#f5f5f7;color:#1f2937;transition:background .3s,color .3s}
 body.dark{background:#1a1a2e;color:#e2e8f0}
+:root{--primary:#4f46e5;--primary-dark:#7c3aed;--primary-light:#f5f3ff;--primary-bg:linear-gradient(135deg,#4f46e5,#7c3aed)}
+body.theme-emerald{--primary:#059669;--primary-dark:#047857;--primary-light:#ecfdf5;--primary-bg:linear-gradient(135deg,#059669,#047857)}
+body.theme-rose{--primary:#e11d48;--primary-dark:#be123c;--primary-light:#fff1f2;--primary-bg:linear-gradient(135deg,#e11d48,#be123c)}
+body.theme-amber{--primary:#d97706;--primary-dark:#b45309;--primary-light:#fffbeb;--primary-bg:linear-gradient(135deg,#d97706,#b45309)}
+body.theme-cyan{--primary:#0891b2;--primary-dark:#0e7490;--primary-light:#ecfeff;--primary-bg:linear-gradient(135deg,#0891b2,#0e7490)}
+body.theme-violet{--primary:#7c3aed;--primary-dark:#6d28d9;--primary-light:#f5f3ff;--primary-bg:linear-gradient(135deg,#7c3aed,#6d28d9)}
 :root{--primary:#4f46e5;--primary-dark:#7c3aed;--primary-light:#f5f3ff}
 body.theme-emerald{--primary:#059669;--primary-dark:#047857;--primary-light:#ecfdf5}
 body.theme-rose{--primary:#e11d48;--primary-dark:#be123c;--primary-light:#fff1f2}
@@ -59,6 +65,49 @@ body.dark .ej-back-btn{background:#1a1a3e;color:#94a3b8}
 .video-btn:active{opacity:.8}
 .subs-box{background:#fefce8;border-radius:8px;padding:10px 12px;margin-top:8px;border-left:3px solid #f59e0b}
 body.dark .subs-box{background:#451a03;border-left-color:#f59e0b}
+.subs-box .sub-title{font-size:.72em;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:4px}
+body.dark .subs-box .sub-title{color:#fbbf24}
+.subs-box .sub-item{font-size:.78em;color:#78350f;margin:3px 0}
+body.dark .subs-box .sub-item{color:#fde68a}
+.weight-history-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;border:none;background:#ede9fe;color:#6d28d9;font-size:.72em;font-weight:600;cursor:pointer;margin-top:4px}
+body.dark .weight-history-btn{background:#1a1a3e;color:#c4b5fd}
+.weight-hist-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:280;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.weight-hist-modal.show{display:flex}
+.weight-hist-card{background:#fff;border-radius:16px;padding:20px;max-width:340px;width:100%;max-height:70vh;overflow-y:auto}
+body.dark .weight-hist-card{background:#16213e}
+.weight-hist-card h3{font-size:.95em;margin-bottom:12px}
+.wh-entry{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f3f4f6;font-size:.82em}
+body.dark .wh-entry{border-bottom-color:#334155}
+.settings-btn{background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9em;display:flex;align-items:center;justify-content:center;padding:0}
+.settings-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:250;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.settings-overlay.show{display:flex}
+.settings-card{background:#fff;border-radius:16px;padding:24px;max-width:320px;width:100%}
+body.dark .settings-card{background:#16213e}
+.settings-card h3{font-size:1em;margin-bottom:16px;color:#1f2937}
+body.dark .settings-card h3{color:#e2e8f0}
+.theme-options{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.theme-dot{width:40px;height:40px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.2s}
+.theme-dot.active{border-color:#1f2937;transform:scale(1.15)}
+body.dark .theme-dot.active{border-color:#fff}
+.settings-close{width:100%;padding:12px;border-radius:10px;border:none;background:#e5e7eb;color:#374151;font-weight:600;cursor:pointer;font-size:.9em}
+body.dark .settings-close{background:#334155;color:#e2e8f0}
+.ej-menu{text-align:center;padding:20px}
+.ej-menu h3{font-size:1.1em;margin-bottom:16px;color:#1f2937}
+body.dark .ej-menu h3{color:#e2e8f0}
+.ej-menu-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.ej-menu-btn{padding:16px 24px;border-radius:14px;border:none;font-size:1em;font-weight:700;cursor:pointer;min-width:130px;transition:.2s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.ej-menu-btn:active{transform:scale(.95)}
+.ej-menu-btn.gym{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+.ej-menu-btn.casa{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
+.ej-sub-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.ej-sub-btn{padding:12px 18px;border-radius:12px;border:2px solid #e5e7eb;background:#fff;font-size:.85em;font-weight:600;cursor:pointer;transition:.2s;color:#374151}
+body.dark .ej-sub-btn{background:#1a1a3e;border-color:#334155;color:#e2e8f0}
+.ej-sub-btn:active{transform:scale(.95)}
+.ej-back-btn{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:8px;border:none;background:#f3f4f6;color:#6b7280;font-size:.8em;cursor:pointer;margin-bottom:12px}
+body.dark .ej-back-btn{background:#1a1a3e;color:#94a3b8}
+.video-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:8px;border:none;background:#dc2626;color:#fff;font-size:.72em;font-weight:600;cursor:pointer;margin-top:8px;text-decoration:none}
+.subs-box{background:#fefce8;border-radius:8px;padding:10px 12px;margin-top:8px;border-left:3px solid #f59e0b}
+body.dark .subs-box{background:#451a03}
 .subs-box .sub-title{font-size:.72em;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:4px}
 body.dark .subs-box .sub-title{color:#fbbf24}
 .subs-box .sub-item{font-size:.78em;color:#78350f;margin:3px 0}
@@ -793,147 +842,81 @@ function saveGymSeriesCompleted(day,exName,allDone){
 
 function renderEjercicio(dayData){
   var el=document.getElementById('ejercicio');
-  // Show exercise selection menu
-  var html='<div class="ej-menu"><h3>Â¿Donde entrenas hoy?</h3>';
+  var html='<div class="ej-menu"><h3>\u00bfDonde entrenas hoy?</h3>';
   html+='<div class="ej-menu-btns">';
-  html+='<button class="ej-menu-btn gym" onclick="showEjType(\'gym\')">ðŸ‹ï¸ Gimnasio</button>';
-  html+='<button class="ej-menu-btn casa" onclick="showEjType(\'casa\')">ðŸ  Casa</button>';
-  html+='</div>';
-  html+='<div id="ejSubMenu"></div></div>';
+  html+='<button class="ej-menu-btn gym" onclick="showEjType(\'gym\')">\u{1F3CB}\uFE0F Gimnasio</button>';
+  html+='<button class="ej-menu-btn casa" onclick="showEjType(\'casa\')">\u{1F3E0} Casa</button>';
+  html+='</div><div id="ejSubMenu"></div></div>';
   el.innerHTML=html;
 }
-
 function showEjType(tipo){
   var sub=document.getElementById('ejSubMenu');
   var html='<div class="ej-sub-btns">';
   if(tipo==='gym'){
-    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_superior\')">ðŸ’ª Tren Superior + Core</button>';
-    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_empuje\')">ðŸ« Empuje + Cardio</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_superior\')">\u{1F4AA} Tren Superior + Core</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_empuje\')">\u{1FAC1} Empuje + Cardio</button>';
   } else {
-    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior\')">ðŸ¦µ Tren Inferior</button>';
-    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior_core\')">ðŸ”¥ Inferior + Core</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior\')">\u{1F9B5} Tren Inferior</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior_core\')">\u{1F525} Inferior + Core</button>';
   }
-  html+='</div>';
-  sub.innerHTML=html;
+  html+='</div>';sub.innerHTML=html;
 }
-
 function loadWorkout(key){
-  var ej=EJERCICIOS_DB[key];
-  if(!ej)return;
+  var ej=EJERCICIOS_DB[key];if(!ej)return;
   var el=document.getElementById('ejercicio');
-  var html='<button class="ej-back-btn" onclick="renderEjercicio(PLAN[DAYS[currentDay]])">â† Volver al menu</button>';
+  var html='<button class="ej-back-btn" onclick="renderEjercicio(PLAN[DAYS[currentDay]])">\u2190 Volver</button>';
   html+='<div class="ejercicio-header"><h3>'+ej.nombre+'</h3><div class="meta">'+ej.tipo+' | '+ej.duracion+'</div></div>';
-  if(ej.calentamiento.length){
-    html+='<div class="phase"><div class="phase-title warm">Calentamiento</div><ul class="simple-list">';
-    ej.calentamiento.forEach(function(s){html+='<li>'+s+'</li>'});
-    html+='</ul></div>';
-  }
+  if(ej.calentamiento.length){html+='<div class="phase"><div class="phase-title warm">Calentamiento</div><ul class="simple-list">';ej.calentamiento.forEach(function(s){html+='<li>'+s+'</li>'});html+='</ul></div>';}
   html+='<div class="phase"><div class="phase-title main">Ejercicios</div>';
   ej.ejercicios.forEach(function(ex,ei){
-    var lastData=getGymWeight(key,ex.nombre);
-    var lastSeries=getGymSeriesCompleted(key,ex.nombre);
+    var lastData=getGymWeight(key,ex.nombre);var lastSeries=getGymSeriesCompleted(key,ex.nombre);
     html+='<div class="exercise-card"><h4>'+ex.nombre+'</h4>';
     html+='<span class="machine-tag">'+ex.maquina+'</span>';
     html+='<span class="config-tag">'+ex.config+'</span>';
     html+='<ol>';ex.pasos.forEach(function(p){html+='<li>'+p+'</li>'});html+='</ol>';
-    html+='<span class="badge badge-sets">'+ex.series+'</span>';
-    html+='<span class="badge badge-rest">Descanso: '+ex.descanso+'</span>';
-    // Video button
-    if(ex.video){html+='<a class="video-btn" href="'+ex.video+'" target="_blank" rel="noopener">â–¶ Ver tecnica</a>';}
+    html+='<span class="badge badge-sets">'+ex.series+'</span><span class="badge badge-rest">Descanso: '+ex.descanso+'</span>';
+    if(ex.video){html+='<a class="video-btn" href="'+ex.video+'" target="_blank">\u25B6 Ver tecnica</a>';}
     var numSeries=parseInt(ex.series)||3;
     html+='<div class="series-checks" data-ex="'+ei+'" data-exname="'+ex.nombre.replace(/"/g,'&quot;')+'" data-wkey="'+key+'">';
-    for(var s=1;s<=numSeries;s++){
-      html+='<div class="series-check"><input type="checkbox" id="s'+ei+'_'+s+'" data-ei="'+ei+'" data-sn="'+s+'" onchange="toggleSerie(this)"><label for="s'+ei+'_'+s+'">Serie '+s+'</label></div>';
-    }
+    for(var s=1;s<=numSeries;s++){html+='<div class="series-check"><input type="checkbox" id="s'+ei+'_'+s+'" onchange="toggleSerie(this)"><label for="s'+ei+'_'+s+'">Serie '+s+'</label></div>';}
     html+='</div>';
     var restSec=parseInt(ex.descanso)||60;
     html+='<button class="timer-btn" onclick="startTimer('+restSec+')">&#9202; Descanso ('+restSec+'s)</button>';
-    html+='<div class="gym-weight-row">';
-    html+='<label>Peso:</label>';
-    html+='<input type="number" step="0.5" id="gw_'+ei+'" placeholder="kg" value="'+(lastData?lastData.weight:'')+'">';
-    html+='<button onclick="saveExWeight2('+ei+',\''+ex.nombre.replace(/'/g,"\\'")+'\',\''+key+'\')">ðŸ’¾</button>';
+    html+='<div class="gym-weight-row"><label>Peso:</label><input type="number" step="0.5" id="gw_'+ei+'" placeholder="kg" value="'+(lastData?lastData.weight:'')+'">';
+    html+='<button onclick="saveExWeight2('+ei+',\''+ex.nombre.replace(/'/g,"\\'")+'\'  ,\''+key+'\')">\u{1F4BE}</button>';
     if(lastData){html+='<span class="last-weight">'+lastData.weight+'kg</span>';}
     if(lastData&&lastSeries&&lastSeries.allDone){html+='<span class="suggestion">+2.5kg</span>';}
-    html+='<button class="weight-history-btn" onclick="showWeightHistory(\''+ex.nombre.replace(/'/g,"\\'")+'\',\''+key+'\')">ðŸ“ˆ Historial</button>';
-    html+='</div>';
-    // Sustitutos
-    if(ex.sustitutos&&ex.sustitutos.length){
-      html+='<div class="subs-box"><div class="sub-title">ðŸ”„ Alternativas</div>';
-      ex.sustitutos.forEach(function(s){html+='<div class="sub-item"><strong>'+s.nombre+'</strong> â€” '+s.nota+'</div>';});
-      html+='</div>';
-    }
-    if(ex.errores&&ex.errores.length){
-      html+='<div class="errors-box"><ul>';
-      ex.errores.forEach(function(e){html+='<li>'+e+'</li>'});
-      html+='</ul></div>';
-    }
+    html+='<button class="weight-history-btn" onclick="showWeightHistory(\''+ex.nombre.replace(/'/g,"\\'")+'\'  ,\''+key+'\')">\u{1F4C8} Historial</button></div>';
+    if(ex.sustitutos&&ex.sustitutos.length){html+='<div class="subs-box"><div class="sub-title">\u{1F504} Alternativas</div>';ex.sustitutos.forEach(function(s){html+='<div class="sub-item"><strong>'+s.nombre+'</strong> \u2014 '+s.nota+'</div>';});html+='</div>';}
+    if(ex.errores&&ex.errores.length){html+='<div class="errors-box"><ul>';ex.errores.forEach(function(e){html+='<li>'+e+'</li>'});html+='</ul></div>';}
     html+='</div>';
   });
   html+='</div>';
-  if(ej.enfriamiento.length){
-    html+='<div class="phase"><div class="phase-title cool">Enfriamiento</div><ul class="simple-list">';
-    ej.enfriamiento.forEach(function(s){html+='<li>'+s+'</li>'});
-    html+='</ul></div>';
-  }
+  if(ej.enfriamiento.length){html+='<div class="phase"><div class="phase-title cool">Enfriamiento</div><ul class="simple-list">';ej.enfriamiento.forEach(function(s){html+='<li>'+s+'</li>'});html+='</ul></div>';}
   el.innerHTML=html;
 }
-
 function saveExWeight2(ei,exName,wkey){
-  var input=document.getElementById('gw_'+ei);
-  var val=parseFloat(input.value);
-  if(!val||val<=0)return;
+  var input=document.getElementById('gw_'+ei);var val=parseFloat(input.value);if(!val||val<=0)return;
   saveGymWeight(wkey,exName,val);
-  // Save to history
-  var hKey='gymWeightHist_'+exName.replace(/\s+/g,'_');
-  var hist=JSON.parse(localStorage.getItem(hKey)||'[]');
-  var today=new Date();
-  var dateStr=today.getDate()+'/'+(today.getMonth()+1);
-  hist.push({kg:val,date:dateStr,ts:today.toISOString()});
-  if(hist.length>20)hist=hist.slice(-20);
-  localStorage.setItem(hKey,JSON.stringify(hist));
-  loadWorkout(wkey);
+  var hKey='gymWeightHist_'+exName.replace(/\s+/g,'_');var hist=JSON.parse(localStorage.getItem(hKey)||'[]');
+  var today=new Date();hist.push({kg:val,date:today.getDate()+'/'+(today.getMonth()+1),ts:today.toISOString()});
+  if(hist.length>20)hist=hist.slice(-20);localStorage.setItem(hKey,JSON.stringify(hist));loadWorkout(wkey);
 }
-
-function showWeightHistory(exName,wkey){
-  var hKey='gymWeightHist_'+exName.replace(/\s+/g,'_');
-  var hist=JSON.parse(localStorage.getItem(hKey)||'[]');
-  document.getElementById('whTitle').textContent='ðŸ“ˆ '+exName;
-  var html='';
-  if(hist.length===0){html='<p style="font-size:.85em;color:#6b7280">Sin registros todavia</p>';}
-  else{
-    hist.slice().reverse().forEach(function(e){
-      html+='<div class="wh-entry"><span>'+e.date+'</span><span style="font-weight:700;color:var(--primary)">'+e.kg+' kg</span></div>';
-    });
-  }
-  document.getElementById('whContent').innerHTML=html;
-  document.getElementById('weightHistModal').classList.add('show');
+function showWeightHistory(exName){
+  var hKey='gymWeightHist_'+exName.replace(/\s+/g,'_');var hist=JSON.parse(localStorage.getItem(hKey)||'[]');
+  document.getElementById('whTitle').textContent='\u{1F4C8} '+exName;
+  var html='';if(hist.length===0){html='<p style="font-size:.85em;color:#6b7280">Sin registros aun</p>';}
+  else{hist.slice().reverse().forEach(function(e){html+='<div class="wh-entry"><span>'+e.date+'</span><span style="font-weight:700;color:var(--primary)">'+e.kg+' kg</span></div>';});}
+  document.getElementById('whContent').innerHTML=html;document.getElementById('weightHistModal').classList.add('show');
 }
 function closeWeightHist(){document.getElementById('weightHistModal').classList.remove('show')}
-
-// Settings
 function openSettings(){document.getElementById('settingsOverlay').classList.add('show');updateThemeDots();}
 function closeSettings(){document.getElementById('settingsOverlay').classList.remove('show');}
-function updateThemeDots(){
-  var current=localStorage.getItem('appTheme')||'';
-  document.querySelectorAll('.theme-dot').forEach(function(dot){
-    dot.classList.toggle('active',dot.dataset.theme===current);
-  });
-}
+function updateThemeDots(){var cur=localStorage.getItem('appTheme')||'';document.querySelectorAll('.theme-dot').forEach(function(d){d.classList.toggle('active',d.dataset.theme===cur);});}
 document.getElementById('settingsBtn').addEventListener('click',openSettings);
-document.querySelectorAll('.theme-dot').forEach(function(dot){
-  dot.addEventListener('click',function(){
-    var theme=this.dataset.theme;
-    document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();
-    if(theme)document.body.classList.add(theme);
-    localStorage.setItem('appTheme',theme);
-    // Update header gradient
-    var header=document.querySelector('header');
-    if(header)header.style.background='var(--primary-bg)';
-    updateThemeDots();
-  });
-});
-// Load saved theme
-(function(){var t=localStorage.getItem('appTheme');if(t)document.body.classList.add(t);var h=document.querySelector('header');if(h&&t)h.style.background='var(--primary-bg)';})();
+document.querySelectorAll('.theme-dot').forEach(function(dot){dot.addEventListener('click',function(){var t=this.dataset.theme;document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();if(t)document.body.classList.add(t);localStorage.setItem('appTheme',t);var h=document.querySelector('header');if(h)h.style.background='var(--primary-bg)';updateThemeDots();});});
+(function(){var t=localStorage.getItem('appTheme');if(t){document.body.classList.add(t);var h=document.querySelector('header');if(h)h.style.background='var(--primary-bg)';}})();
+
 function saveExWeight(ei,exName){
   var input=document.getElementById('gw_'+ei);
   var val=parseFloat(input.value);
@@ -1703,5 +1686,7 @@ if('serviceWorker' in navigator){
 <button class="settings-close" onclick="closeWeightHist()" style="margin-top:12px">Cerrar</button>
 </div>
 </div>
+<div class="settings-overlay" id="settingsOverlay"><div class="settings-card"><h3>⚙️ Ajustes</h3><p style="font-size:.8em;color:#6b7280;margin-bottom:12px">Tema de color</p><div class="theme-options"><div class="theme-dot" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)" data-theme="" title="Indigo"></div><div class="theme-dot" style="background:linear-gradient(135deg,#059669,#047857)" data-theme="theme-emerald" title="Esmeralda"></div><div class="theme-dot" style="background:linear-gradient(135deg,#e11d48,#be123c)" data-theme="theme-rose" title="Rosa"></div><div class="theme-dot" style="background:linear-gradient(135deg,#d97706,#b45309)" data-theme="theme-amber" title="Ambar"></div><div class="theme-dot" style="background:linear-gradient(135deg,#0891b2,#0e7490)" data-theme="theme-cyan" title="Cyan"></div></div><button class="settings-close" onclick="closeSettings()">Cerrar</button></div></div>
+<div class="weight-hist-modal" id="weightHistModal"><div class="weight-hist-card"><h3 id="whTitle">Historial</h3><div id="whContent"></div><button class="settings-close" onclick="closeWeightHist()" style="margin-top:12px">Cerrar</button></div></div>
 </body>
 </html>
