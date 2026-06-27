@@ -856,7 +856,11 @@ function showEjType(tipo){
   if(tipo==='gym'){
     html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_superior\')">\u{1F4AA} Tren Superior + Core</button>';
     html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_empuje\')">\u{1FAC1} Empuje + Cardio</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_inferior\')">\u{1F9B5} Tren Inferior</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'gym_inferior_core\')">\u{1F525} Inferior + Core</button>';
   } else {
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_superior\')">\u{1F4AA} Tren Superior + Core</button>';
+    html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_empuje\')">\u{1FAC1} Empuje + Cardio</button>';
     html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior\')">\u{1F9B5} Tren Inferior</button>';
     html+='<button class="ej-sub-btn" onclick="loadWorkout(\'casa_inferior_core\')">\u{1F525} Inferior + Core</button>';
   }
