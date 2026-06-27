@@ -739,7 +739,7 @@ var MEAL_NAMES={desayuno:'Desayuno',colacion1:'Colacion Matutina',almuerzo:'Almu
 var currentDay=new Date().getDay();
 var selected={};
 var timerInterval=null;
-var STARTING_WEIGHT=parseFloat(localStorage.getItem('startingWeight'))||115;
+var STARTING_WEIGHT=parseFloat(localStorage.getItem('startingWeight'))||0;
 
 function getWeekId(){var d=new Date();var start=new Date(d.getFullYear(),0,1);var diff=d-start;var oneWeek=604800000;return d.getFullYear()+'-W'+Math.ceil(diff/oneWeek)}
 
@@ -1108,7 +1108,7 @@ function renderPeso(){
   html+='<h3>📏 Perfil y IMC</h3>';
   html+='<div class="weight-input-row"><input type="number" step="1" id="heightInput" placeholder="Altura en cm" value="'+(height||'')+'" onchange="saveHeight()"><button onclick="saveHeight()">Guardar altura</button></div>';
   html+='<div class="weight-input-row"><input type="number" step="0.1" id="weightInput" placeholder="Peso en kg"><button onclick="addWeight()">Guardar peso</button></div>';
-  html+='<div class="weight-input-row" style="margin-top:8px"><input type="number" step="0.1" id="startWeightInput" placeholder="Peso inicial" value="'+STARTING_WEIGHT+'"><button onclick="updateStartWeight()">Actualizar inicio</button></div>';
+  html+='<div class="weight-input-row" style="margin-top:8px"><input type="number" step="0.1" id="startWeightInput" placeholder="Peso inicial (kg)" value="'+(STARTING_WEIGHT||'')+'"><button onclick="updateStartWeight()">Actualizar inicio</button></div>';
   if(bmi){
     var cat=getBMICategory(bmi);
     html+='<div class="bmi-result"><span class="bmi-value">'+bmi.toFixed(1)+'</span><span class="bmi-badge '+cat.cls+'">'+cat.label+'</span></div>';
