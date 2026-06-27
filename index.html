@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -920,6 +920,7 @@ function closeSettings(){document.getElementById('settingsOverlay').classList.re
 function updateThemeDots(){var cur=localStorage.getItem('appTheme')||'';document.querySelectorAll('.theme-dot').forEach(function(d){d.classList.toggle('active',d.dataset.theme===cur);});}
 var _sb=document.getElementById('settingsBtn');if(_sb)_sb.addEventListener('click',openSettings);
 document.querySelectorAll('.theme-dot').forEach(function(dot){dot.addEventListener('click',function(){var t=this.dataset.theme;document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();if(t)document.body.classList.add(t);localStorage.setItem('appTheme',t);updateThemeDots();});});
+document.addEventListener('click',function(e){if(e.target.classList.contains('theme-dot')){var t=e.target.dataset.theme;document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();if(t)document.body.classList.add(t);localStorage.setItem('appTheme',t);updateThemeDots();}});
 (function(){var t=localStorage.getItem('appTheme');if(t){document.body.classList.add(t);}})();
 
 function saveExWeight(ei,exName){
@@ -1669,28 +1670,6 @@ if('serviceWorker' in navigator){
 <div class="fq-unit" id="fqUnit"></div>
 <div class="food-qty-btns" id="fqBtns"></div>
 <button class="food-qty-cancel" onclick="closeQtyModal()">Cancelar</button>
-</div>
-<div class="settings-overlay" id="settingsOverlay">
-<div class="settings-card">
-<h3>âš™ï¸ Ajustes</h3>
-<p style="font-size:.8em;color:#6b7280;margin-bottom:12px">Tema de color</p>
-<div class="theme-options">
-<div class="theme-dot" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)" data-theme="" title="Indigo"></div>
-<div class="theme-dot" style="background:linear-gradient(135deg,#059669,#047857)" data-theme="theme-emerald" title="Esmeralda"></div>
-<div class="theme-dot" style="background:linear-gradient(135deg,#e11d48,#be123c)" data-theme="theme-rose" title="Rosa"></div>
-<div class="theme-dot" style="background:linear-gradient(135deg,#d97706,#b45309)" data-theme="theme-amber" title="Ambar"></div>
-<div class="theme-dot" style="background:linear-gradient(135deg,#0891b2,#0e7490)" data-theme="theme-cyan" title="Cyan"></div>
-</div>
-<button class="settings-close" onclick="closeSettings()">Cerrar</button>
-</div>
-</div>
-<div class="weight-hist-modal" id="weightHistModal">
-<div class="weight-hist-card">
-<h3 id="whTitle">Historial de peso</h3>
-<div id="whContent"></div>
-<button class="settings-close" onclick="closeWeightHist()" style="margin-top:12px">Cerrar</button>
-</div>
-</div>
 <div class="settings-overlay" id="settingsOverlay"><div class="settings-card"><h3>⚙️ Ajustes</h3><p style="font-size:.8em;color:#6b7280;margin-bottom:12px">Tema de color</p><div class="theme-options"><div class="theme-dot" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)" data-theme="" title="Indigo"></div><div class="theme-dot" style="background:linear-gradient(135deg,#059669,#047857)" data-theme="theme-emerald" title="Esmeralda"></div><div class="theme-dot" style="background:linear-gradient(135deg,#e11d48,#be123c)" data-theme="theme-rose" title="Rosa"></div><div class="theme-dot" style="background:linear-gradient(135deg,#d97706,#b45309)" data-theme="theme-amber" title="Ambar"></div><div class="theme-dot" style="background:linear-gradient(135deg,#0891b2,#0e7490)" data-theme="theme-cyan" title="Cyan"></div></div><button class="settings-close" onclick="closeSettings()">Cerrar</button></div></div>
 <div class="weight-hist-modal" id="weightHistModal"><div class="weight-hist-card"><h3 id="whTitle">Historial</h3><div id="whContent"></div><button class="settings-close" onclick="closeWeightHist()" style="margin-top:12px">Cerrar</button></div></div>
 </body>
