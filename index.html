@@ -367,6 +367,7 @@ body.dark .reminder-info{background:#451a03;color:#fbbf24}
 <button id="nextDay">&#9654;</button>
 </div>
 <button class="dark-toggle" id="darkToggle">🌙</button>
+<button class="settings-btn" id="settingsBtn">⚙️</button>
 </div>
 </header>
 <nav class="tabs">
@@ -913,7 +914,7 @@ function closeWeightHist(){document.getElementById('weightHistModal').classList.
 function openSettings(){document.getElementById('settingsOverlay').classList.add('show');updateThemeDots();}
 function closeSettings(){document.getElementById('settingsOverlay').classList.remove('show');}
 function updateThemeDots(){var cur=localStorage.getItem('appTheme')||'';document.querySelectorAll('.theme-dot').forEach(function(d){d.classList.toggle('active',d.dataset.theme===cur);});}
-document.getElementById('settingsBtn').addEventListener('click',openSettings);
+var _sb=document.getElementById('settingsBtn');if(_sb)_sb.addEventListener('click',openSettings);
 document.querySelectorAll('.theme-dot').forEach(function(dot){dot.addEventListener('click',function(){var t=this.dataset.theme;document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();if(t)document.body.classList.add(t);localStorage.setItem('appTheme',t);var h=document.querySelector('header');if(h)h.style.background='var(--primary-bg)';updateThemeDots();});});
 (function(){var t=localStorage.getItem('appTheme');if(t){document.body.classList.add(t);var h=document.querySelector('header');if(h)h.style.background='var(--primary-bg)';}})();
 
